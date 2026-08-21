@@ -101,12 +101,28 @@ class Module {
 			wp_die();
 		}
 
-		if ( ! wp_verify_nonce( $_GET['_wpnonce'], 'carousel_slider_quick_view' ) ) {
+		if ( ! wp_verify_nonce( sanitize_text_field( wp_unslash( $_GET['_wpnonce'] ) ), 'carousel_slider_quick_view' ) ) {
+			wp_die();
+		}
+
+		// phpcs:ignore WordPress.Security.ValidatedSanitizedInput.InputNotSanitized
+		$product_id = absint( wp_unslash( $_GET['product_id'] ) );
+		$quick_view_product = wc_get_product( $product_id );
+		$post               = $product_id ? get_post( $product_id ) : null;
+
+		if (
+			! $quick_view_product instanceof WC_Product
+			|| ! $post
+			|| 'publish' !== $quick_view_product->get_status()
+			|| ! $quick_view_product->is_visible()
+			|| post_password_required( $post )
+			|| ! is_post_publicly_viewable( $post )
+		) {
 			wp_die();
 		}
 
 		global $product;
-		$product = wc_get_product( intval( $_GET['product_id'] ) );
+		$product = $quick_view_product;
 		$html    = static::get_quick_view_html( $product );
 		// phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 		echo apply_filters( 'carousel_slider/product_quick_view_html', $html, $product );

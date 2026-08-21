@@ -2,9 +2,9 @@
 Contributors: sayful
 Tags: carousel, carousel slider, image carousel, product carousel, slider
 Requires at least: 6.7
-Tested up to: 6.9
+Tested up to: 7.1
 Requires PHP: 7.0
-Stable tag: 2.2.17
+Stable tag: 2.2.18
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.txt
 
@@ -84,6 +84,12 @@ Carousel Slider is a first-class citizen in Gutenberg Block Editor. Search 'caro
 a dedicated 'carousel slider' block with a live preview for Gutenberg Block Editor.
 
 == Changelog ==
+
+= version 2.2.18 - 2026-08-21 =
+* Fix security vulnerability on an AJAX action.
+* Update code based on the latest WordPress plugin standard.
+* Test with WordPress 7.1 and WooCommerce 11.0
+
 
 = version 2.2.17 - 2025-12-01 =
 * Test with WordPress 6.9 and WooCommerce 10.3
